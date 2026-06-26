@@ -52,6 +52,41 @@ public class User implements UserDetails {
     @Builder.Default
     private Role role = Role.USER;
 
+    // ── Sprint 2 additions ─────────────────────────────────────────────────────
+
+    /** e.g. "Software Engineer", "Data Scientist", "Product Manager" */
+    @Column(length = 100)
+    private String targetRole;
+
+    /** e.g. "JUNIOR", "MID", "SENIOR", "LEAD" */
+    @Column(length = 20)
+    private String experienceLevel;
+
+    /** Years of total professional experience */
+    @Column
+    private Integer yearsOfExperience;
+
+    /** e.g. "ENGLISH", "FRENCH", "GERMAN" */
+    @Column(length = 20)
+    @Builder.Default
+    private String preferredLanguage = "ENGLISH";
+
+    /** e.g. "GERMANY", "FRANCE", "CANADA", "MOROCCO" */
+    @Column(length = 50)
+    private String targetCountry;
+
+    /**
+     * Avatar stored as Base64 data-URL.
+     * Sprint 2: upload-and-store-in-DB approach (simple, no file-server needed).
+     * Sprint 7 can migrate to S3/object-storage if needed.
+     */
+    @Column(columnDefinition = "TEXT")
+    private String avatarBase64;
+
+    /** Raw CV text (extracted from PDF upload) — used by AI in Sprint 3+ */
+    @Column(columnDefinition = "TEXT")
+    private String cvText;
+
     @Column(nullable = false, updatable = false)
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();

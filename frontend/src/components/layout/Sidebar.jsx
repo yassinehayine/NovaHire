@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Zap, History, Settings, LogOut, ChevronRight } from 'lucide-react'
+import { LayoutDashboard, Zap, User, History, LogOut, ChevronRight } from 'lucide-react'
 import Logo from '../common/Logo'
 import { useAuth } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
@@ -8,8 +8,8 @@ import toast from 'react-hot-toast'
 const navItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
   { icon: Zap, label: 'New Interview', path: '/interview/new', badge: 'AI' },
+  { icon: User, label: 'Profile', path: '/profile' },
   { icon: History, label: 'History', path: '/history', disabled: true, soon: true },
-  { icon: Settings, label: 'Settings', path: '/settings', disabled: true, soon: true },
 ]
 
 const Sidebar = () => {
@@ -62,15 +62,24 @@ const Sidebar = () => {
 
       {/* User footer */}
       <div className="p-4 border-t border-white/5">
-        <div className="flex items-center gap-3 px-3 py-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-nova-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-            {user?.firstName?.[0]}{user?.lastName?.[0]}
+        <Link
+          to="/profile"
+          className="flex items-center gap-3 px-3 py-2 mb-1 rounded-xl hover:bg-white/5 transition-colors group"
+        >
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+            {user?.avatarBase64 ? (
+              <img src={user.avatarBase64} alt="avatar" className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-nova-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
+                {user?.firstName?.[0]}{user?.lastName?.[0]}
+              </div>
+            )}
           </div>
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-slate-200 truncate">{user?.firstName} {user?.lastName}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-slate-200 truncate group-hover:text-white transition-colors">{user?.firstName} {user?.lastName}</p>
             <p className="text-xs text-slate-500 truncate">{user?.email}</p>
           </div>
-        </div>
+        </Link>
         <button
           onClick={handleLogout}
           className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-red-400 hover:bg-red-500/5 transition-all duration-150"

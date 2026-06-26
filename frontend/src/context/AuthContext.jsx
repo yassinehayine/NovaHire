@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import { authApi } from '../api/auth'
+import { usersApi } from '../api/users'
 
 const AuthContext = createContext(null)
 
@@ -35,6 +35,21 @@ export const AuthProvider = ({ children }) => {
     setUser(userData)
   }, [])
 
+  /**
+   * Call this after any profile update so the sidebar/header reflect
+   * the latest name, avatar, etc. without forcing a full re-login.
+   */
+  const refreshUser = useCallback(async () => {
+    try {
+      const response = await usersApi.getMe()
+      const userData = response.data
+      localStorage.setItem('nova_user', JSON.stringify(userData))
+      setUser(userData)
+    } catch {
+      // Token may be expired — the axios interceptor will redirect to /login
+    }
+  }, [])
+
   const logout = useCallback(() => {
     localStorage.removeItem('nova_token')
     localStorage.removeItem('nova_user')
@@ -42,7 +57,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   )
