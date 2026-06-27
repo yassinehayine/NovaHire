@@ -137,6 +137,13 @@ public class Interview {
     @Column
     private LocalDateTime completedAt;
 
+    /**
+     * Set once, on the CREATED → IN_PROGRESS transition (first session load).
+     * Sole anchor for the client-side countdown: startedAt + durationMinutes.
+     */
+    @Column
+    private LocalDateTime startedAt;
+
     @PreUpdate
     public void preUpdate() { this.updatedAt = LocalDateTime.now(); }
 

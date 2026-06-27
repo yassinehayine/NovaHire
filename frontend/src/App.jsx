@@ -8,7 +8,8 @@ import RegisterPage from './pages/auth/RegisterPage'
 import DashboardPage from './pages/dashboard/DashboardPage'
 import ProfilePage from './pages/profile/ProfilePage'
 import CreateInterviewPage from './pages/interview/CreateInterviewPage'
-import InterviewPlaceholderPage from './pages/interview/InterviewPlaceholderPage'
+import InterviewSessionPage from './pages/interview/InterviewSessionPage'
+import InterviewSummaryPage from './pages/interview/InterviewSummaryPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 const App = () => {
@@ -25,7 +26,8 @@ const App = () => {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/interview/new" element={<CreateInterviewPage />} />
-            <Route path="/interview/:id" element={<InterviewPlaceholderPage />} />
+            <Route path="/interview/:id" element={<InterviewSessionPage />} />
+            <Route path="/interview/:id/summary" element={<InterviewSummaryPage />} />
             {/* Sprint 5: /history */}
           </Route>
         </Route>

@@ -20,4 +20,19 @@ export const interviewsApi = {
     const response = await axiosInstance.get('/interviews/stats/dashboard')
     return response.data
   },
+
+  getSession: async (id) => {
+    const response = await axiosInstance.get(`/interviews/${id}/session`)
+    return response.data
+  },
+
+  saveAnswer: async (id, questionId, payload) => {
+    const response = await axiosInstance.put(`/interviews/${id}/questions/${questionId}/answer`, payload)
+    return response.data
+  },
+
+  finish: async (id) => {
+    const response = await axiosInstance.post(`/interviews/${id}/finish`)
+    return response.data
+  },
 }
