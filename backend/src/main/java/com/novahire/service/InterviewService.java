@@ -41,6 +41,9 @@ public class InterviewService {
                 .durationMinutes(request.getDurationMinutes())
                 .questionCount(questionCount)
                 .language(request.getLanguage().toUpperCase())
+                .interviewStyle(request.getInterviewStyle() != null
+                        ? request.getInterviewStyle()
+                        : Interview.InterviewStyle.MIXED)
                 .status(Interview.Status.CREATED)
                 .build();
 

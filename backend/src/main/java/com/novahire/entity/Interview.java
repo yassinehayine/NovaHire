@@ -80,12 +80,20 @@ public class Interview {
 
     /**
      * Language for question generation.
-     * Stored as enum name: ENGLISH | FRENCH | GERMAN.
-     * Sprint 3 injects this directly into the Gemini prompt.
+     * Stored as enum name: ENGLISH | FRENCH | ARABIC.
      */
     @Column(nullable = false, length = 20)
     @Builder.Default
     private String language = "ENGLISH";
+
+    /**
+     * Controls the category mix in the AI prompt (Sprint 4).
+     * Null for interviews created before Sprint 4 — treated as MIXED at generation time.
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(length = 30)
+    @Builder.Default
+    private InterviewStyle interviewStyle = InterviewStyle.MIXED;
 
     // ── AI-generated content (null until Sprint 3) ────────────────────────────
 
@@ -161,5 +169,13 @@ public class Interview {
         MID,      // 2–5 years
         SENIOR,   // 5–10 years
         LEAD      // 10+ years / principal / architect
+    }
+
+    /** Controls the question category mix sent to the AI prompt. */
+    public enum InterviewStyle {
+        MIXED,         // balanced across all categories
+        TECHNICAL,     // code, algorithms, debugging-heavy
+        BEHAVIORAL,    // soft skills, STAR method, communication
+        SYSTEM_DESIGN  // architecture, scalability, design patterns
     }
 }
