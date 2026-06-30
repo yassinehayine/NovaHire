@@ -31,6 +31,18 @@ novahire:
     expiration: 86400000   # 24 hours in ms
     refresh-expiration: 604800000  # 7 days in ms
 
+  ai:
+    provider: ${AI_PROVIDER:gemini}   # gemini | static  — switch without code changes
+    fallback-to-static: true          # if AI fails or key missing → static questions
+    prompt:
+      version: v1
+    gemini:
+      api-key: ${GEMINI_API_KEY:}     # set env var GEMINI_API_KEY; blank = auto-fallback to static
+      model: gemini-1.5-flash
+      temperature: 0.7
+      max-tokens: 2048
+      timeout-seconds: 30
+
 logging:
   level:
     com.novahire: DEBUG
