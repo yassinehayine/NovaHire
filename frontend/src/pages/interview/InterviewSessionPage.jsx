@@ -36,8 +36,10 @@ const InterviewSessionPage = () => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-24">
-        <LoadingSpinner size="lg" />
+      <div className="flex flex-col items-center justify-center py-24 space-y-4">
+        <div className="w-10 h-10 border-2 border-nova-500/20 border-t-nova-500 rounded-full animate-spin" />
+        <p className="text-slate-300 text-sm font-medium">Generating your personalized questions…</p>
+        <p className="text-slate-500 text-xs">AI is tailoring the interview to your profile</p>
       </div>
     )
   }

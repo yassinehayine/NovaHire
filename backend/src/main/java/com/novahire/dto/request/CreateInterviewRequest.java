@@ -24,7 +24,13 @@ public class CreateInterviewRequest {
     @NotNull(message = "Duration is required")
     private Integer durationMinutes;
 
-    /** ENGLISH | FRENCH | GERMAN */
+    /** ENGLISH | FRENCH | ARABIC */
     @NotBlank(message = "Language is required")
     private String language;
+
+    /**
+     * Interview style controlling the AI question category mix.
+     * Optional — defaults to MIXED when null.
+     */
+    private Interview.InterviewStyle interviewStyle;
 }

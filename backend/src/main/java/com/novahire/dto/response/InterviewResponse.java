@@ -22,6 +22,7 @@ public class InterviewResponse {
     private Integer durationMinutes;
     private Integer questionCount;
     private String language;
+    private String interviewStyle;
     private String status;
     private Integer score;
     private String overallFeedback;
@@ -38,6 +39,7 @@ public class InterviewResponse {
                 .durationMinutes(i.getDurationMinutes())
                 .questionCount(i.getQuestionCount())
                 .language(i.getLanguage())
+                .interviewStyle(i.getInterviewStyle() != null ? i.getInterviewStyle().name() : "MIXED")
                 .status(i.getStatus().name())
                 .score(i.getScore())
                 .overallFeedback(i.getOverallFeedback())

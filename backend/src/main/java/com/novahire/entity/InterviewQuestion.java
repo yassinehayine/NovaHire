@@ -54,16 +54,36 @@ public class InterviewQuestion {
     @Builder.Default
     private QuestionSource source = QuestionSource.STATIC;
 
-    /** Bank key this question was pulled from — debugging/traceability only, never sent to clients. */
+    /**
+     * Bank key (static) or promptId UUID (AI-generated) — for debugging/traceability only.
+     * Never sent to clients.
+     */
     @Column(length = 50)
     private String sourceRef;
+
+    /**
+     * Model answer key points stored by the AI at generation time.
+     * Null for static questions. Used for future automated scoring (Sprint 5+).
+     */
+    @Column(columnDefinition = "TEXT")
+    private String expectedAnswer;
 
     @Column(nullable = false, updatable = false)
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public enum QuestionCategory {
-        TECHNICAL, BEHAVIORAL
+        // Sprint 3 (existing — no existing rows affected)
+        TECHNICAL,
+        BEHAVIORAL,
+        // Sprint 4 (new — AI uses these based on interview style)
+        PROBLEM_SOLVING,
+        SYSTEM_DESIGN,
+        ALGORITHMS,
+        COMMUNICATION,
+        ARCHITECTURE,
+        DEBUGGING,
+        CODING
     }
 
     public enum QuestionSource {
