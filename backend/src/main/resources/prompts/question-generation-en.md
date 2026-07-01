@@ -10,6 +10,13 @@ CANDIDATE PROFILE:
 QUESTION CATEGORY MIX:
 {{categoryInstructions}}
 
+CRITICAL LANGUAGE REQUIREMENT:
+Write this entire interview in ENGLISH.
+- The "text" field of every question MUST be written entirely in English.
+- The "expectedAnswer" field MUST be written entirely in English.
+- Do not translate or mix in any other language.
+- The "category" field is the ONLY exception — it MUST stay one of these exact codes, unchanged: TECHNICAL, BEHAVIORAL, PROBLEM_SOLVING, SYSTEM_DESIGN, ALGORITHMS, COMMUNICATION, ARCHITECTURE, DEBUGGING, CODING.
+
 STRICT RULES:
 1. Questions MUST be specific to the role "{{targetRole}}" and the listed technologies — never generic
 2. Difficulty MUST match the experience level:
@@ -22,10 +29,12 @@ STRICT RULES:
 5. No yes/no questions, no trivial questions, no duplicate topics
 6. Professional, concise HR tone — no fluff
 7. For the expectedAnswer, provide 3-5 key bullet points a strong candidate should mention
+8. Every "text" and "expectedAnswer" value MUST be written entirely in English. Do not answer in any other language.
 
 RESPONSE FORMAT:
 Respond with ONLY a valid JSON array. No introduction. No explanation. No markdown fences.
 Start your response with [ and end with ].
+Reminder: ALL question text and expected answers must be in English. Category codes must stay in English exactly as listed above.
 
 [
   {

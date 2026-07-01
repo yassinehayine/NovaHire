@@ -96,14 +96,14 @@ public class AIService {
     private String resolveCategoryInstructions(Interview.InterviewStyle style) {
         return switch (style) {
             case MIXED ->
-                    "Mix categories: ~30% TECHNICAL, ~20% BEHAVIORAL, ~15% PROBLEM_SOLVING, " +
-                    "~15% ALGORITHMS, ~10% SYSTEM_DESIGN, ~10% COMMUNICATION";
+                    "TECHNICAL: ~30%, BEHAVIORAL: ~20%, PROBLEM_SOLVING: ~15%, " +
+                    "ALGORITHMS: ~15%, SYSTEM_DESIGN: ~10%, COMMUNICATION: ~10%";
             case TECHNICAL ->
-                    "Focus technical: ~30% TECHNICAL, ~25% ALGORITHMS, ~25% CODING, ~20% DEBUGGING";
+                    "TECHNICAL: ~30%, ALGORITHMS: ~25%, CODING: ~25%, DEBUGGING: ~20%";
             case BEHAVIORAL ->
-                    "Focus behavioral: ~45% BEHAVIORAL, ~30% COMMUNICATION, ~25% PROBLEM_SOLVING";
+                    "BEHAVIORAL: ~45%, COMMUNICATION: ~30%, PROBLEM_SOLVING: ~25%";
             case SYSTEM_DESIGN ->
-                    "Focus design: ~40% SYSTEM_DESIGN, ~25% ARCHITECTURE, ~25% TECHNICAL, ~10% BEHAVIORAL";
+                    "SYSTEM_DESIGN: ~40%, ARCHITECTURE: ~25%, TECHNICAL: ~25%, BEHAVIORAL: ~10%";
         };
     }
 
