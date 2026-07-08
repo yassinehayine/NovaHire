@@ -14,7 +14,11 @@ public class AIConfig {
     public RestTemplate aiRestTemplate(AIProperties properties) {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         factory.setConnectTimeout(5_000);
-        factory.setReadTimeout(properties.getGemini().getTimeoutSeconds() * 1_000);
+        // Shared by generation and the (slower) evaluation call — use the larger of the two budgets.
+        int readTimeoutSeconds = Math.max(
+                properties.getGemini().getTimeoutSeconds(),
+                properties.getEvaluation().getTimeoutSeconds());
+        factory.setReadTimeout(readTimeoutSeconds * 1_000);
         return new RestTemplate(factory);
     }
 }

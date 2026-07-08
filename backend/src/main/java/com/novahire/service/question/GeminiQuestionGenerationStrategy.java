@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -39,9 +38,9 @@ public class GeminiQuestionGenerationStrategy implements QuestionGenerationStrat
     @Override
     public List<InterviewQuestion> generateQuestions(Interview interview) {
         if (!isAIEnabled()) {
-            log.info("AI provider disabled (provider='{}', key present={}), using static questions for interview id={}",
+            log.info("AI provider disabled (provider='{}', configured={}), using static questions for interview id={}",
                     aiProperties.getProvider(),
-                    StringUtils.hasText(aiProperties.getGemini().getApiKey()),
+                    aiProperties.isProviderConfigured(),
                     interview.getId());
             return staticFallback.generateQuestions(interview);
         }
@@ -58,7 +57,6 @@ public class GeminiQuestionGenerationStrategy implements QuestionGenerationStrat
     }
 
     private boolean isAIEnabled() {
-        return "gemini".equalsIgnoreCase(aiProperties.getProvider())
-                && StringUtils.hasText(aiProperties.getGemini().getApiKey());
+        return aiProperties.isProviderConfigured();
     }
 }

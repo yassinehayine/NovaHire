@@ -5,9 +5,12 @@ import com.novahire.dto.request.SaveAnswerRequest;
 import com.novahire.dto.response.ApiResponse;
 import com.novahire.dto.response.DashboardStatsResponse;
 import com.novahire.dto.response.InterviewAnswerResponse;
+import com.novahire.dto.response.EvaluationResponse;
 import com.novahire.dto.response.InterviewResponse;
 import com.novahire.dto.response.InterviewSessionResponse;
+import com.novahire.dto.response.ReportResponse;
 import com.novahire.entity.User;
+import com.novahire.service.EvaluationService;
 import com.novahire.service.InterviewService;
 import com.novahire.service.InterviewSessionService;
 import jakarta.validation.Valid;
@@ -26,6 +29,7 @@ public class InterviewController {
 
     private final InterviewService interviewService;
     private final InterviewSessionService interviewSessionService;
+    private final EvaluationService evaluationService;
 
     @PostMapping
     public ResponseEntity<ApiResponse<InterviewResponse>> createInterview(
@@ -82,5 +86,34 @@ public class InterviewController {
             @PathVariable Long id) {
         InterviewResponse response = interviewSessionService.finishSession(user, id);
         return ResponseEntity.ok(ApiResponse.success("Interview finished", response));
+    }
+
+    // ── Sprint 5: AI evaluation & report ───────────────────────────────────────
+
+    /** Runs AI evaluation once (idempotent). Returns the stored result if already completed. */
+    @PostMapping("/{id}/evaluate")
+    public ResponseEntity<ApiResponse<EvaluationResponse>> evaluateInterview(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long id) {
+        EvaluationResponse response = evaluationService.evaluate(user, id);
+        return ResponseEntity.ok(ApiResponse.success("Interview evaluated", response));
+    }
+
+    /** Returns the stored evaluation. 404 if the interview was never evaluated. */
+    @GetMapping("/{id}/evaluation")
+    public ResponseEntity<ApiResponse<EvaluationResponse>> getEvaluation(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long id) {
+        EvaluationResponse response = evaluationService.getEvaluation(user, id);
+        return ResponseEntity.ok(ApiResponse.success("Evaluation retrieved", response));
+    }
+
+    /** Returns the professional report (interview config + evaluation). 404 if never evaluated. */
+    @GetMapping("/{id}/report")
+    public ResponseEntity<ApiResponse<ReportResponse>> getReport(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long id) {
+        ReportResponse response = evaluationService.getReport(user, id);
+        return ResponseEntity.ok(ApiResponse.success("Report retrieved", response));
     }
 }

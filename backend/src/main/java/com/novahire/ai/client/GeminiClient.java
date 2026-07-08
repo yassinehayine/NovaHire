@@ -34,17 +34,29 @@ public class GeminiClient implements AIProviderClient {
 
     @Override
     public String generate(String prompt) {
+        return generate(prompt, null);
+    }
+
+    @Override
+    public String generate(String prompt, GenerationOptions options) {
         String url = String.format(GEMINI_URL,
                 properties.getGemini().getModel(),
                 properties.getGemini().getApiKey());
+
+        double temperature = options != null && options.temperature() != null
+                ? options.temperature()
+                : properties.getGemini().getTemperature();
+        int maxTokens = options != null && options.maxOutputTokens() != null
+                ? options.maxOutputTokens()
+                : properties.getGemini().getMaxTokens();
 
         Map<String, Object> requestBody = Map.of(
                 "contents", List.of(Map.of(
                         "parts", List.of(Map.of("text", prompt))
                 )),
                 "generationConfig", Map.of(
-                        "temperature", properties.getGemini().getTemperature(),
-                        "maxOutputTokens", properties.getGemini().getMaxTokens()
+                        "temperature", temperature,
+                        "maxOutputTokens", maxTokens
                 )
         );
 

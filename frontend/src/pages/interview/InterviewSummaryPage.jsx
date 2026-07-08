@@ -76,15 +76,26 @@ const InterviewSummaryPage = () => {
         </div>
       </div>
 
-      <div className="card">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-nova-600/15 border border-nova-500/25 flex items-center justify-center flex-shrink-0">
-            <Sparkles size={18} className="text-nova-400" />
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-nova-900/80 to-purple-900/40 border border-nova-700/30 p-6">
+        <div className="absolute top-0 right-0 w-48 h-48 bg-nova-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-nova-600/15 border border-nova-500/25 flex items-center justify-center flex-shrink-0">
+              <Sparkles size={18} className="text-nova-400" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-100">Get your AI evaluation</p>
+              <p className="text-xs text-slate-400 mt-0.5">Score, strengths, weaknesses and a hiring recommendation</p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-medium text-slate-200">Scoring available in a future update</p>
-            <p className="text-xs text-slate-500 mt-0.5">AI evaluation of your answers is coming soon</p>
-          </div>
+          <button
+            type="button"
+            onClick={() => navigate(`/interview/${id}/results`)}
+            className="btn-primary inline-flex items-center gap-2 flex-shrink-0"
+          >
+            <Sparkles size={16} />
+            Evaluate with AI
+          </button>
         </div>
       </div>
 
