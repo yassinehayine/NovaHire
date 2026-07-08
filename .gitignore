@@ -22,4 +22,7 @@ frontend/.env.*.local
 
 # Secrets — never commit these
 *.env
+.env.local
+*.env.local
+**/.env.local
 application-prod.yml

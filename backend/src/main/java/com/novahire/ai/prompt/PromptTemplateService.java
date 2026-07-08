@@ -58,13 +58,20 @@ public class PromptTemplateService {
 
     private String interpolate(String template, PromptContext ctx) {
         return template
-                .replace("{{targetRole}}",          ctx.targetRole())
-                .replace("{{experienceLevel}}",      ctx.experienceLevel())
-                .replace("{{technologies}}",         ctx.technologies())
+                .replace("{{targetRole}}",           nv(ctx.targetRole()))
+                .replace("{{experienceLevel}}",      nv(ctx.experienceLevel()))
+                .replace("{{technologies}}",         nv(ctx.technologies()))
                 .replace("{{questionCount}}",        String.valueOf(ctx.questionCount()))
-                .replace("{{interviewStyle}}",       ctx.interviewStyle())
-                .replace("{{categoryInstructions}}", ctx.categoryInstructions())
-                .replace("{{promptVersion}}",        ctx.promptVersion());
+                .replace("{{interviewStyle}}",       nv(ctx.interviewStyle()))
+                .replace("{{categoryInstructions}}", nv(ctx.categoryInstructions()))
+                .replace("{{promptVersion}}",        nv(ctx.promptVersion()))
+                // Sprint 5 — evaluation templates only; null/absent for question generation
+                .replace("{{questionsAndAnswers}}",  nv(ctx.questionsAndAnswers()));
+    }
+
+    /** Null-safe placeholder value — a template variable with no supplied value renders empty. */
+    private String nv(String value) {
+        return value != null ? value : "";
     }
 
     private String toLangKey(String language) {

@@ -42,6 +42,11 @@ novahire:
       temperature: 0.7
       max-tokens: 2048
       timeout-seconds: 30
+    evaluation:                       # Sprint 5 — AI answer evaluation & report
+      version: v1                     # engine schema version, stored on each report
+      temperature: 0.2                # low → consistent, reproducible scoring
+      max-tokens: 4096                # one batched call returns every verdict + overall report
+      timeout-seconds: 60             # batched evaluation runs longer than generation
 
 logging:
   level:
